@@ -1,0 +1,40 @@
+services:
+  ticketing.api:
+    image: ${DOCKER_REGISTRY-}ticketingapi
+    container_name: Ticketing.Api
+    ports:
+      - "8080:8080" 
+    build:
+      context: .
+      dockerfile: Ticketing.Api/Dockerfile
+    depends_on:
+      - ticketing-db
+
+  ticketing-db:
+    image: postgres:latest
+    container_name: Ticketing.Db
+    environment:
+      POSTGRES_DB: ticketing
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - ticketing-db-data:/var/lib/postgresql
+
+  ticketing-idp:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: Ticketing.Identity
+    command: start-dev --import-realm
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    volumes:
+      - ./.containers/identity:/opt/keycloak/data
+      - ./.files/ticketing-realm-export.json:/opt/keycloak/data/import/realm.json
+    ports:
+      - 18082:8080
+
+
+volumes:
+  ticketing-db-data:
