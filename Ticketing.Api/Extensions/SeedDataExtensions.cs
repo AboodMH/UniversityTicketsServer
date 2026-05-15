@@ -27,7 +27,7 @@ public static class SeedDataExtensions
                 {
                     { "grant_type", "client_credentials" },
                     { "client_id", "ticketing-admin-client" },
-                    { "client_secret", "JZzEJmQgUm57ocqnrOkJBrvPOTsWrKrh" }
+                    { "client_secret", "YOUR_ADMIN_CLIENT_SECRET" }
                 }));
 
             if (!tokenResponse.IsSuccessStatusCode)
