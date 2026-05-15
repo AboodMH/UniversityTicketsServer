@@ -54,6 +54,7 @@ public static class SeedDataExtensions
                     username = user.Email,
                     email = user.Email,
                     enabled = true,
+                    emailVerified = true,
                     firstName = user.FirstName,
                     lastName = user.LastName,
                     credentials = new[]
