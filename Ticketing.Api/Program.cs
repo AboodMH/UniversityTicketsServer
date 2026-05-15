@@ -35,6 +35,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
     app.ApplyMigrations();
+
+    await app.SeedUsersAsync();
 }
 
 //app.UseHttpsRedirection();
